@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>狂道影像 Crater Visuals | Moving Image Portfolio</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/MrMAXVW/cratervisuals/main/resources/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -216,9 +218,10 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center border-b border-white/10">
-        <div class="text-xl font-black tracking-widest uppercase">
-            Crater <span class="text-gray-500">Visuals</span>
-        </div>
+        <!-- Logo Image with Back to Top Behavior - Size reduced 0.5x -->
+        <a href="#" id="back-to-top" class="block h-4 md:h-5 transition-opacity hover:opacity-70">
+            <img src="https://raw.githubusercontent.com/MrMAXVW/cratervisuals/main/resources/logo_white.png" alt="Crater Visuals" class="h-full w-auto">
+        </a>
         
         <!-- Menu Toggle Button -->
         <button id="menu-toggle" class="z-[60] flex flex-col justify-center items-end space-y-1.5 p-2 focus:outline-none group">
@@ -263,7 +266,6 @@
             <div class="video-overlay"></div>
         </div>
 
-        <!-- 變更點：移除英文 Crater Visuals，中文 Size 放大約兩倍 -->
         <div class="z-10 animate-fade-in overlap-container">
             <div class="px-6 md:px-12 mb-0 relative z-10 flex flex-col justify-end">
                 <h2 class="text-[9rem] md:text-[22rem] font-black uppercase leading-[0.8] tracking-tighter text-outline">
@@ -506,6 +508,7 @@
         const menuLinks = document.querySelectorAll('.menu-link');
         const copyBtn = document.getElementById('copy-btn');
         const copyMsg = document.getElementById('copy-msg');
+        const backToTop = document.getElementById('back-to-top');
         
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
 
@@ -568,11 +571,18 @@
             }, 2000);
         });
 
+        // Logo Back to Top behavior
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href').startsWith('#')) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.startsWith('#')) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
+                    const target = document.querySelector(href);
                     if (target) {
                         target.scrollIntoView({ behavior: 'smooth' });
                     }
