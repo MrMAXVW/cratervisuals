@@ -112,11 +112,13 @@
         /* 重疊容器 */
         .overlap-container {
             position: relative;
+            display: flex;
+            align-items: flex-end; /* 關鍵：強制容器內元素底部對齊 */
         }
         
         .overlap-bg-text {
             position: absolute;
-            top: -5%; /* 跟隨中文字上移 */
+            bottom: 0; /* 改為底部對齊 */
             left: 1.5rem;
             z-index: -1;
             pointer-events: none;
@@ -146,7 +148,7 @@
         <!-- 增加負 Margin (-mt-24) 將文字整體上移 -->
         <div class="z-10 text-left animate-fade-in overlap-container -mt-24">
             <!-- 中文名拆行 + Outline 效果 -->
-            <div class="px-6 md:px-12 mb-0 relative z-10">
+            <div class="px-6 md:px-12 mb-0 relative z-10 flex flex-col justify-end">
                 <h2 class="text-7xl md:text-[12rem] font-black uppercase leading-[0.85] tracking-tighter text-outline">
                     狂道
                 </h2>
@@ -155,8 +157,8 @@
                 </h2>
             </div>
 
-            <!-- 英文 Overlap -->
-            <div class="overlap-bg-text px-4 md:px-6">
+            <!-- 英文 Overlap (底部對齊) -->
+            <div class="overlap-bg-text px-4 md:px-6 mb-[-1.5rem] md:mb-[-2.5rem]">
                 <h1 class="hero-title text-8xl md:text-[14rem] font-black uppercase text-outline opacity-40">
                     Crater
                 </h1>
