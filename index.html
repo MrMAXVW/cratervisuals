@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狂道影像 Crater Visuals | Moving Image Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Noto Sans HK', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+        }
+
+        /* 全線 Outline 效果 */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .crater-gradient {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+        }
+
+        .video-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-card:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        .video-card img {
+            transition: transform 0.8s ease;
+        }
+
+        .video-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.6);
+        }
+
+        .overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .overlay {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, background 0.3s ease;
+            transform: translate(-50%, -50%);
+            left: -100px;
+        }
+
+        nav {
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.7);
+        }
+
+        .glitch-text:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        a, button {
+            cursor: none !important;
+        }
+
+        .hero-title {
+            letter-spacing: -0.04em;
+            line-height: 0.8;
+        }
+
+        /* 重疊容器 */
+        .overlap-container {
+            position: relative;
+        }
+        
+        .overlap-bg-text {
+            position: absolute;
+            top: -5%; /* 跟隨中文字上移 */
+            left: 1.5rem;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="selection:bg-white selection:text-black">
+
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center border-b border-white/10">
+        <div class="text-xl font-black tracking-widest uppercase">
+            Crater <span class="text-gray-500">Visuals</span>
+        </div>
+        <!-- 導航鏈結放右上角 -->
+        <div class="flex space-x-8 text-sm font-medium tracking-widest uppercase">
+            <a href="#work" class="hover:text-gray-400 transition">Works</a>
+            <a href="#about" class="hover:text-gray-400 transition">Philosophy</a>
+            <a href="#members" class="hover:text-gray-400 transition">Members</a>
+            <a href="#contact" class="hover:text-gray-400 transition">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex flex-col justify-end pb-12 md:pb-24 px-0 relative overflow-hidden bg-black">
+        <!-- 增加負 Margin (-mt-24) 將文字整體上移 -->
+        <div class="z-10 text-left animate-fade-in overlap-container -mt-24">
+            <!-- 中文名拆行 + Outline 效果 -->
+            <div class="px-6 md:px-12 mb-0 relative z-10">
+                <h2 class="text-7xl md:text-[12rem] font-black uppercase leading-[0.85] tracking-tighter text-outline">
+                    狂道
+                </h2>
+                <h2 class="text-7xl md:text-[12rem] font-black uppercase leading-[0.85] tracking-tighter text-outline">
+                    影像
+                </h2>
+            </div>
+
+            <!-- 英文 Overlap -->
+            <div class="overlap-bg-text px-4 md:px-6">
+                <h1 class="hero-title text-8xl md:text-[14rem] font-black uppercase text-outline opacity-40">
+                    Crater
+                </h1>
+                <h1 class="hero-title text-8xl md:text-[14rem] font-black uppercase text-outline opacity-40 -mt-10">
+                    Visuals
+                </h1>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 right-10 animate-bounce">
+            <p class="text-[10px] tracking-[0.5em] text-gray-600 uppercase vertical-text transform rotate-90 origin-right">Scroll to explore</p>
+        </div>
+    </section>
+
+    <!-- Works Grid -->
+    <section id="work" class="py-24 px-6 md:px-12 bg-black">
+        <div class="mb-16">
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">Featured Projects</h2>
+            <div class="h-px w-20 bg-white"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="video-card aspect-video bg-neutral-900 group">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80" alt="Work 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                <div class="overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <h3 class="text-2xl font-bold italic uppercase tracking-wider">The Void</h3>
+                    <p class="text-sm text-gray-300">Commercial / Director's Cut</p>
+                </div>
+            </div>
+
+            <div class="video-card aspect-video bg-neutral-900 group">
+                <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80" alt="Work 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                <div class="overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <h3 class="text-2xl font-bold italic uppercase tracking-wider">Urban Echo</h3>
+                    <p class="text-sm text-gray-300">Music Video / 2024</p>
+                </div>
+            </div>
+
+            <div class="video-card aspect-video bg-neutral-900 group">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80" alt="Work 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                <div class="overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <h3 class="text-2xl font-bold italic uppercase tracking-wider">Neon Pulse</h3>
+                    <p class="text-sm text-gray-300">Experimental / Short Film</p>
+                </div>
+            </div>
+
+            <div class="video-card aspect-video bg-neutral-900 group">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80" alt="Work 4" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                <div class="overlay absolute inset-0 flex flex-col justify-end p-8">
+                    <h3 class="text-2xl font-bold italic uppercase tracking-wider">Inner Peace</h3>
+                    <p class="text-sm text-gray-300">Brand Identity / Motion</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section id="about" class="py-32 px-6 md:px-24 bg-neutral-950 flex flex-col md:flex-row items-center gap-16">
+        <div class="md:w-1/2">
+            <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-wider text-outline">
+                道，<br>不只是路。<br>而是影像的狂。
+            </h2>
+        </div>
+        <div class="md:w-1/2 border-l border-white/10 pl-8">
+            <p class="text-gray-400 text-lg leading-relaxed mb-6 italic">
+                「狂道」代表一種對視覺極限的病態執着。我們不單止捕捉畫面，我們挖掘情緒的火山口。喺呢個數碼洪流嘅時代，唯有最原始、最狂放嘅動態影像，先可以喺觀眾腦海留低烙印。
+            </p>
+            <p class="text-white font-bold tracking-[0.2em] uppercase text-sm">
+                —— If you seek mediocrity, you've come to the wrong place.
+            </p>
+        </div>
+    </section>
+
+    <!-- Members Section -->
+    <section id="members" class="py-24 px-6 md:px-12 bg-black border-t border-white/5">
+        <div class="mb-16">
+            <h2 class="text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">The Collective</h2>
+            <div class="h-px w-20 bg-white"></div>
+        </div>
+        
+        <!-- 改為單欄 grid-cols-1，每人佔一行 -->
+        <div class="grid grid-cols-1 gap-y-10">
+            <div class="group">
+                <h3 class="text-4xl md:text-7xl font-black text-outline group-hover:text-white transition duration-500 lowercase tracking-tighter inline-block">@potter.c_o</h3>
+            </div>
+            <div class="group">
+                <h3 class="text-4xl md:text-7xl font-black text-outline group-hover:text-white transition duration-500 lowercase tracking-tighter inline-block">@gumm.is.rendering</h3>
+            </div>
+            <div class="group">
+                <h3 class="text-4xl md:text-7xl font-black text-outline group-hover:text-white transition duration-500 lowercase tracking-tighter inline-block">@smallbird_wes</h3>
+            </div>
+            <div class="group">
+                <h3 class="text-4xl md:text-7xl font-black text-outline group-hover:text-white transition duration-500 lowercase tracking-tighter inline-block">@randy_illust</h3>
+            </div>
+            <div class="group">
+                <h3 class="text-4xl md:text-7xl font-black text-outline group-hover:text-white transition duration-500 lowercase tracking-tighter inline-block">@dadadeedee_</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 px-0 text-left crater-gradient overflow-hidden">
+        <h2 class="text-6xl md:text-[14rem] font-black mb-12 tracking-tighter opacity-5 text-left pl-0">CONTACT</h2>
+        <div class="max-w-6xl mx-auto -mt-16 md:-mt-32 px-6 md:px-12 text-left">
+            <p class="text-xl mb-8 tracking-[0.3em] uppercase text-gray-400">Ready to Erupt?</p>
+            <a href="mailto:hello@crater-visuals.com" class="inline-block text-2xl md:text-8xl font-black underline underline-offset-[12px] hover:text-gray-400 transition glitch-text tracking-tight">
+                hello@crater-visuals.com
+            </a>
+            
+            <div class="mt-20 flex space-x-12 text-gray-500 text-xs uppercase tracking-[0.4em]">
+                <a href="https://www.instagram.com/cratervisuals/" target="_blank" class="hover:text-white transition border-b border-transparent hover:border-white">Instagram</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 flex justify-between items-center text-[10px] text-gray-700 uppercase tracking-[0.4em] border-t border-white/5">
+        <div>&copy; 2024 Crater Visuals.</div>
+        <div class="hidden md:block text-white/20">STAY WILD / 狂道</div>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const interactiveElements = document.querySelectorAll('a, .video-card, button');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(5)';
+                cursor.style.backgroundColor = 'rgba(255,255,255,1)';
+                cursor.style.mixBlendMode = 'difference';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.backgroundColor = 'transparent';
+                cursor.style.mixBlendMode = 'normal';
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
